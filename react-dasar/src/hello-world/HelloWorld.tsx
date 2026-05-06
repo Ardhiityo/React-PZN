@@ -11,7 +11,7 @@ export default function HelloWorld() {
     )
 }
 
-function HeaderHelloWorld({ text = 'Default value' }) {
+function HeaderHelloWorld({ text = 'Default value' }: { text?: string }) {
     //style 1 with object 
     return (
         <h1 style={{
@@ -23,7 +23,7 @@ function HeaderHelloWorld({ text = 'Default value' }) {
     )
 }
 
-function ParagraphHelloWorld({ text = 'Default value' }) {
+function ParagraphHelloWorld({ text = 'Default value' }: { text?: string }) {
     //style 2 with object
     const style: object = {
         color: 'blue',
