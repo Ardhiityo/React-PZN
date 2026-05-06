@@ -22,7 +22,8 @@ export default function Todolist() {
         }
     ]
 
-    const todos = data.map((item) => <Todo {...item} />)
+    //cara 1
+    //const todos = data.map((item) => <Todo {...item} />)
 
     return (
         //Tanpa loop 
@@ -33,8 +34,17 @@ export default function Todolist() {
         // </ul>
 
         //Dengan collection component
+
+        //cara 1
+        /**
+         <ul>
+             { todos }
+         </ul>
+         */
+
+        //cara 2
         <ul>
-            { todos }
+            {data.map((todo: TodoItem, index: number) => <Todo key={index} {...todo} />)}
         </ul>
     )
 }
