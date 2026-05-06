@@ -10,9 +10,9 @@ export default function Table() {
                 </tr>
             </thead>
             <tbody>
-                <Row text="Satu" />
-                <Row text="Dua" />
-                <Row text="Tiga" />
+                <Row id={1} text="Satu" />
+                <Row id={2} text="Dua" />
+                <Row id={3} text="Tiga" />
             </tbody>
         </table>
     )
