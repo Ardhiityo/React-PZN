@@ -19,7 +19,9 @@ createRoot(document.getElementById('root')).render(
         <SearchForm handleSubmit={
             (event) => {
                 event.preventDefault();
-                alert('Searched!');
+                // Tidak direkomendasikan menggunakan DOM
+                const inputText = (document.getElementById('search') as HTMLInputElement).value;
+                document.getElementById('content').innerText = inputText;
             }} />
     </StrictMode>
 )
