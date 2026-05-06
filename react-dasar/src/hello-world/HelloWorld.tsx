@@ -1,16 +1,18 @@
 export default function HelloWorld() {
+    //spread syntax
+    const props: object = {
+        text: 'Hello World'
+    }
     return (
         <>
-            <HeaderHelloWorld />
-            <ParagraphHelloWorld />
+            <HeaderHelloWorld {...props} />
+            <ParagraphHelloWorld text="Belajar React" />
         </>
     )
 }
 
-function HeaderHelloWorld() {
-    const text = 'Hello World';
-
-    //style with object 1
+function HeaderHelloWorld({ text = 'Default value' }) {
+    //style 1 with object 
     return (
         <h1 style={{
             color: 'red',
@@ -21,11 +23,9 @@ function HeaderHelloWorld() {
     )
 }
 
-function ParagraphHelloWorld() {
-    const text = 'Belajar React Dasar';
-
-    //style with object 2
-    const style = {
+function ParagraphHelloWorld({ text = 'Default value' }) {
+    //style 2 with object
+    const style: object = {
         color: 'blue',
         backgroundColor: 'green'
     };
