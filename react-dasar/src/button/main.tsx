@@ -5,6 +5,7 @@ import MyButton from "./MyButton";
 import Toolbar from "./Toolbar";
 import type { MouseEvent } from "react";
 import SearchForm from "./SearchForm";
+import Counter from "./Counter";
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
@@ -23,5 +24,7 @@ createRoot(document.getElementById('root')).render(
                 const inputText = (document.getElementById('search') as HTMLInputElement).value;
                 document.getElementById('content').innerText = inputText;
             }} />
+        <Counter />
+        <Counter />
     </StrictMode>
 )
