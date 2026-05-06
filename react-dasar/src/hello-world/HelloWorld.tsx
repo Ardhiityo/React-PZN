@@ -1,3 +1,5 @@
+import "./HelloWorld.css";
+
 export default function HelloWorld() {
     //spread syntax
     const props: object = {
@@ -17,7 +19,8 @@ function HeaderHelloWorld({ text = 'Default value' }: { text?: string }) {
         <h1 style={{
             color: 'red',
             backgroundColor: 'orange'
-        }}>
+        }}
+            className="title">
             {text.toUpperCase()}
         </h1>
     )
@@ -30,7 +33,9 @@ function ParagraphHelloWorld({ text = 'Default value' }: { text?: string }) {
         backgroundColor: 'green'
     };
     return (
-        <p style={style}>
+        <p
+            style={style}
+            className="content">
             {text.toLowerCase()}
         </p>
     )
