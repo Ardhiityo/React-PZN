@@ -10,12 +10,18 @@ export default function Counter() {
     
     //pada saat diklik count masih bernilai 0, ketika proses render selesai, maka count bernilai 1
     function handleClick() {
-        setCount(count + 1);
+        //melakukan increment +1
+        // setCount(count + 1);
         
         //meskipun set count 3x maka tetap saja increment dilakukan +1
         // setCount(count + 1);
         // setCount(count + 1);
         // setCount(count + 1);
+        
+        //jika ingin melakukan set count 3x maka bisa dibungkus dengan closure pada useState
+        setCount(count => count+ 1);
+        setCount(count => count+ 1);
+        setCount(count => count+ 1);
         
         //masih bernilai 0 ketika di click
         console.log(count);
