@@ -22,12 +22,15 @@ export default function CounterApp() {
                 Maka State akan dipertahankan oleh React, yang artinya tidak akan dihapus
                 jika Component nya sama, dan posisinya sama, maka State akan dipertahankan
             */}
-            {showButton ? <Counter name="Eko" /> : <Counter name="Budi" />}
+            {/* {showButton ? <Counter name="Eko" /> : <Counter name="Budi" />} */}
 
             {/* Jika compoennt berbeda maka state akan dihapus */}
             {/* {showButton ? <Counter name="Eko" /> : <Sample/>} */}
 
             <br />
+
+            {/* Agar state dapat ter-reset apabila terdapat component yang sama, bisa menggunakan key (direkomendasikan) */}
+            {showButton ? <Counter key={1} name="Eko" /> : <Counter key={2} name="Budi" />}
 
             <input type="checkbox" checked={showButton} onChange={handleShowButton} name="count" id="count" />
             <label htmlFor="count">Show Count</label>
