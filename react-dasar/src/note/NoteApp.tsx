@@ -1,6 +1,6 @@
-import { useReducer } from "react";
 import NoteForm from "./NoteForm";
 import NoteList from "./NoteList";
+import { useImmerReducer } from "use-immer";
 
 interface NoteItem {
     id?: number,
@@ -34,27 +34,25 @@ const initialNotes: NoteItem[] = [
     },
 ]
 
-function noteReducer(notes: NoteItem[], action: Action) {
-    switch (action.type) {
-        case "ADD_NOTE":
-            return [
-                ...notes, {
-                    id: id++,
-                    name: action.name,
-                    done: false
-                }
-            ];
-        case "UPDATE_NOTE":
-            return notes.map(note => note.id === action.id ?
-                { ...note, name: action.name, done: action.done } : note
-            );
-        case "DELETE_NOTE":
-            return notes.filter(note => note.id !== action.id);
+function noteReducer(draft: NoteItem[], action: Action) {
+    if (action.type === 'ADD_NOTE') {
+        draft.push({
+            id: id++,
+            name: action.name,
+            done: false
+        })
+    } else if (action.type === 'UPDATE_NOTE') {
+        const index = draft.findIndex(item => item.id === action.id);
+        draft[index].name = action.name;
+        draft[index].done = action.done;
+    } else if (action.type === 'DELETE_NOTE') {
+        const index = draft.findIndex(item => item.id === action.id);
+        draft.splice(index, 1);
     }
 }
 
 export default function NoteApp() {
-    const [notes, dispatch] = useReducer(noteReducer, initialNotes);
+    const [notes, dispatch] = useImmerReducer(noteReducer, initialNotes);
 
     function addNote(note: string) {
         dispatch({
