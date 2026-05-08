@@ -1,16 +1,22 @@
+import { useReducer } from "react";
 import NoteForm from "./NoteForm";
 import NoteList from "./NoteList";
-import { useImmer } from "use-immer";
 
-type TaskItem = {
-    id: number,
-    name: string,
-    done: boolean
+interface NoteItem {
+    id?: number,
+    name?: string,
+    done?: boolean
+}
+
+type ActionType = "ADD_NOTE" | "UPDATE_NOTE" | "DELETE_NOTE";
+
+interface Action extends NoteItem {
+    type: ActionType
 }
 
 let id = 0;
 
-const initialNotes: TaskItem[] = [
+const initialNotes: NoteItem[] = [
     {
         id: id++,
         name: 'Belajar HTML',
@@ -28,30 +34,46 @@ const initialNotes: TaskItem[] = [
     },
 ]
 
+function noteReducer(notes: NoteItem[], action: Action) {
+    switch (action.type) {
+        case "ADD_NOTE":
+            return [
+                ...notes, {
+                    id: id++,
+                    name: action.name,
+                    done: false
+                }
+            ];
+        case "UPDATE_NOTE":
+            return notes.map(note => note.id === action.id ?
+                { ...note, name: action.name, done: action.done } : note
+            );
+        case "DELETE_NOTE":
+            return notes.filter(note => note.id !== action.id);
+    }
+}
+
 export default function NoteApp() {
-    const [notes, setNotes] = useImmer(initialNotes);
+    const [notes, dispatch] = useReducer(noteReducer, initialNotes);
 
     function addNote(note: string) {
-        setNotes(notes => {
-            notes.push({
-                id: id++,
-                name: note,
-                done: false
-            });
-        });
+        dispatch({
+            type: 'ADD_NOTE',
+            name: note
+        })
     }
 
-    function updateNote(id: number, note: TaskItem) {
-        setNotes(notes => {
-            const index = notes.findIndex(note => note.id === id);
-            notes[index] = note;
-        });
+    function updateNote(note: NoteItem) {
+        dispatch({
+            type: 'UPDATE_NOTE',
+            ...note
+        })
     }
 
     function deleteNote(id: number) {
-        setNotes(notes => {
-            const index = notes.findIndex(note => note.id === id);
-            notes.splice(index, 1);
+        dispatch({
+            type: 'DELETE_NOTE',
+            id: id
         })
     }
 

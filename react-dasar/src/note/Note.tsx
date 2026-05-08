@@ -8,7 +8,7 @@ export default function Note({ note, updateNote, deleteNote }) {
 
     function handleSave() {
         setIsEditing(false);
-        updateNote(note.id, {
+        updateNote({
             ...note,
             name: noteInput
         })
@@ -20,7 +20,7 @@ export default function Note({ note, updateNote, deleteNote }) {
     }
 
     function handleIsDone(e) {
-        updateNote(note.id, {
+        updateNote({
             ...note,
             done: e.target.checked
         })
