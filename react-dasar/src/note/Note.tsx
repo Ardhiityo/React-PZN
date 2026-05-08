@@ -1,33 +1,47 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { NotesDispatchContext } from "./NoteContext";
 
-export default function Note({ note, updateNote, deleteNote }) {
+interface NoteItem {
+    id?: number,
+    name?: string,
+    done?: boolean
+}
+
+export default function Note({ note }: { note: NoteItem }) {
     const [isEditing, setIsEditing] = useState(false)
     const [noteInput, setNoteInput] = useState('');
+
+    const dispatch = useContext(NotesDispatchContext);
 
     let component;
 
     function handleSave() {
         setIsEditing(false);
-        updateNote({
+        dispatch({
+            type: 'UPDATE_NOTE',
             ...note,
             name: noteInput
         })
     }
 
     function handleEdit() {
-        setNoteInput(note.name);
+        setNoteInput(note.name ?? '');
         setIsEditing(true);
     }
 
     function handleIsDone(e) {
-        updateNote({
+        dispatch({
+            type: 'UPDATE_NOTE',
             ...note,
             done: e.target.checked
         })
     }
 
     function handleDelete() {
-        deleteNote(note.id);
+        dispatch({
+            type: 'DELETE_NOTE',
+            id: note.id
+        })
     }
 
     function handleChangeInput(e) {

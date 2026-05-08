@@ -1,7 +1,10 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { NotesDispatchContext } from "./NoteContext";
 
-export default function NoteForm({ addNote }) {
+export default function NoteForm() {
     const [note, setNote] = useState('');
+
+    const dispatch = useContext(NotesDispatchContext);
 
     function handleInput(e) {
         setNote(e.target.value);
@@ -9,7 +12,10 @@ export default function NoteForm({ addNote }) {
 
     function handleSubmitForm(e) {
         e.preventDefault();
-        addNote(note)
+        dispatch({
+            type: 'ADD_NOTE',
+            name: note
+        })
         setNote('');
     }
 
