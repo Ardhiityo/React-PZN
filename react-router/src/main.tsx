@@ -9,6 +9,8 @@ import Home from './Home';
 import About from './About';
 import DataLayout from './DataLayout';
 import ProductDetail from './ProductDetail';
+import Image from './Image';
+import NotFound from './NotFound';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path='/home' element={<Home />} />
         <Route path='/about' element={<About />} />
-        <Route path='/about' />
+        <Route path='/images/*' element={<Image />} />
         <Route path='/data' element={<DataLayout />}>
           <Route index element={<Data />} />
           <Route path='customers' element={<Customer />} />
@@ -24,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path='products' element={<Product />} />
           <Route path='products/:id' element={<ProductDetail />} />
         </Route>
+        <Route path='/*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
