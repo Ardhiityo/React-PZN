@@ -8,6 +8,7 @@ import Product from './Product';
 import Home from './Home';
 import About from './About';
 import DataLayout from './DataLayout';
+import ProductDetail from './ProductDetail';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path='customers' element={<Customer />} />
           <Route path='sellers' element={<Seller />} />
           <Route path='products' element={<Product />} />
+          <Route path='products/:id' element={<ProductDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
