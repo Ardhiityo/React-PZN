@@ -7,6 +7,7 @@ import Seller from './Seller';
 import Product from './Product';
 import Home from './Home';
 import About from './About';
+import DataLayout from './DataLayout';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/home' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/about' />
-        <Route path='/data'>
+        <Route path='/data' element={<DataLayout />}>
           <Route index element={<Data />} />
           <Route path='customers' element={<Customer />} />
           <Route path='sellers' element={<Seller />} />
