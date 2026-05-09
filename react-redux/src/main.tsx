@@ -10,7 +10,12 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
     <BrowserRouter>
     <Routes>
-      <Route path='/counter' element={<Counter/>}/>
+      <Route path='/counter' element={
+        <>
+        <Counter/>
+        <Counter/>
+        </>
+      }/>
     </Routes>
     </BrowserRouter>
     </Provider>
