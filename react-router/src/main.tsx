@@ -11,6 +11,7 @@ import DataLayout from './DataLayout';
 import ProductDetail from './ProductDetail';
 import Image from './Image';
 import NotFound from './NotFound';
+import ProductSearch from './ProductSearch';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path='customers' element={<Customer />} />
           <Route path='sellers' element={<Seller />} />
           <Route path='products' element={<Product />} />
+          <Route path='products/search' element={<ProductSearch />} />
           <Route path='products/:id' element={<ProductDetail />} />
         </Route>
         <Route path='/*' element={<NotFound />} />
