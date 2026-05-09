@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Product from "./Product";
 
 export default function ProductList() {
@@ -18,10 +18,15 @@ export default function ProductList() {
     //fetch akan dipanggil terus apabila ada perubahan state, contohnya setProduct
     useEffect(() => {
         console.log('call');
-        if (loaded) {
+
+        async function fetchProducts() {
             fetch('/products.json')
                 .then(data => data.json())
                 .then(data => setProducts(data))
+
+        }
+        if (loaded) {
+            fetchProducts();
         }
 
         //Clean Up akan dieksekusi sebelum Effect selanjutnya di eksekusi, atau Component di hilangkan
