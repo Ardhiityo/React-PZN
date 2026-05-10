@@ -1,6 +1,6 @@
 import { useState, type SubmitEvent } from "react"
 import { AxiosError } from "axios";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { errorAlert, successAlert } from "../../lib/alert/sweetAlert";
 import { userRegister } from "../../lib/api/userApi";
 
@@ -111,7 +111,7 @@ export default function UserRegister() {
                 </div>
                 <div className="text-center text-sm text-gray-400">
                     Already have an account?
-                    <a href="index.html" className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200">Sign in</a>
+                    <Link to='/login' className="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200">Sign in</Link>
                 </div>
             </form>
         </>
