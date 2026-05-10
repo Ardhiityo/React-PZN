@@ -60,3 +60,7 @@ export const userUpdatePassword = async ({ password }: UpdateUser): Promise<Axio
         password
     });
 }
+
+export const userLogout = async (): Promise<AxiosResponse> => {
+    return api.delete('/users/logout');
+}
