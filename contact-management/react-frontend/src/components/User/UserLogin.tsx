@@ -26,6 +26,7 @@ export default function UserLogin() {
             } else if (error instanceof Error) {
                 return errorAlert(error.message);
             }
+            return errorAlert('Unknown error');
         }
     }
 

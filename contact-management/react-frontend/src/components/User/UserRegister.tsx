@@ -37,7 +37,6 @@ export default function UserRegister() {
                 successAlert('Register Successfully!');
                 navigate('/login');
             }
-            throw Error;
         } catch (error) {
             if (error instanceof AxiosError && error.response?.status === 400) {
                 const formattedErrors: FormErrors = {};
@@ -50,7 +49,6 @@ export default function UserRegister() {
             } else if (error instanceof Error) {
                 return errorAlert(error.message);
             }
-
             return errorAlert('Unknown error');
         }
     }
