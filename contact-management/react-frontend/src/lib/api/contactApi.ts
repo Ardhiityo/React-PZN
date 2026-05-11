@@ -7,6 +7,10 @@ type CreateContact = {
     phone: string;
 };
 
+type UpdateContact = CreateContact & {
+    id: number
+}
+
 type ContactForm = {
     first_name: string;
     last_name?: string;
@@ -22,7 +26,7 @@ type ContactQueryParams = {
     page?: string;
 };
 
-export const contactCreate = async ({ firstName, lastName, email, phone, }: CreateContact) => {
+export const contactCreate = async ({ firstName, lastName, email, phone }: CreateContact) => {
     const form: ContactForm = {
         first_name: firstName,
         ...(lastName && { last_name: lastName }),
@@ -47,4 +51,19 @@ export const contactList = async (params: ContactQueryParams) => {
 
 export const contactDelete = async (id: number) => {
     return api.delete(`/contacts/${id}`);
+}
+
+export const contactDetail = async (id: number) => {
+    return api.get(`/contacts/${id}`)
+}
+
+export const contactUpdate = async ({ id, firstName, lastName, email, phone }: UpdateContact) => {
+    const form: ContactForm = {
+        first_name: firstName,
+        ...(lastName && { last_name: lastName }),
+        email,
+        phone,
+    };
+
+    return api.put(`/contacts/${id}`, form);
 }
