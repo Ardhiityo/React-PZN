@@ -26,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path='contacts'>
             <Route index element={<ContactList />} />
             <Route path='create' element={<ContactCreate />} />
+            <Route path=':id' element={<></>} />
           </Route>
         </Route>
       </Routes>
