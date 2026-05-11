@@ -1,7 +1,7 @@
 import { Link } from "react-router"
-import { contactList } from "../../lib/api/contactApi";
+import { contactDelete, contactList } from "../../lib/api/contactApi";
 import { AxiosError } from "axios";
-import { errorAlert } from "../../lib/alert/sweetAlert";
+import { confirmAlert, errorAlert, successAlert } from "../../lib/alert/sweetAlert";
 import { useEffectOnce } from "react-use";
 import { useState, type SubmitEvent } from "react";
 
@@ -32,6 +32,26 @@ export default function ContactList() {
 
     function handleSetPage(page: number) {
         fetchContacts(page);
+    }
+
+    async function handleDelete(id: number) {
+        try {
+            if (await confirmAlert()) {
+                const response = await contactDelete(id);
+                if (response.status === 200) {
+                    successAlert('Deleted Contact Successfully!');
+                    fetchContacts(page);
+                }
+            }
+        } catch (error) {
+            if (error instanceof AxiosError && error.response?.status === 404) {
+                return errorAlert(error.response.data.errors);
+            } else if (error instanceof Error) {
+                return errorAlert(error.message);
+            }
+            return errorAlert('Unknown error');
+        }
+
     }
 
     const [errors, setErrors] = useState<FormErrors>({
@@ -233,7 +253,7 @@ export default function ContactList() {
                                 <a href="edit_contact.html" className="px-4 py-2 bg-gradient text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
                                     <i className="fas fa-edit mr-2" /> Edit
                                 </a>
-                                <button className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
+                                <button onClick={() => handleDelete(contact.id)} className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
                                     <i className="fas fa-trash-alt mr-2" /> Delete
                                 </button>
                             </div>
@@ -241,17 +261,19 @@ export default function ContactList() {
                     </div>
                 )}
             </div>
-            <div className="mt-10 flex justify-center">
-                <nav className="flex items-center space-x-3 bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 p-3 animate-fade-in">
-                    {page > 1 && <button onClick={() => handleSetPage(page - 1)} className="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center">
-                        <i className="fas fa-chevron-left mr-2" /> Previous
-                    </button>}
-                    {pages}
-                    {page < totalPage && <button onClick={() => handleSetPage(page + 1)} className="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center">
-                        Next <i className="fas fa-chevron-right ml-2" />
-                    </button>}
-                </nav>
-            </div>
+            {contacts.length && (
+                <div className="mt-10 flex justify-center">
+                    <nav className="flex items-center space-x-3 bg-gray-800 bg-opacity-80 rounded-xl shadow-custom border border-gray-700 p-3 animate-fade-in">
+                        {page > 1 && <button onClick={() => handleSetPage(page - 1)} className="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center">
+                            <i className="fas fa-chevron-left mr-2" /> Previous
+                        </button>}
+                        {pages}
+                        {page < totalPage && <button onClick={() => handleSetPage(page + 1)} className="px-4 py-2 bg-gray-700 text-gray-300 rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 flex items-center">
+                            Next <i className="fas fa-chevron-right ml-2" />
+                        </button>}
+                    </nav>
+                </div>
+            )}
         </>
     )
 }

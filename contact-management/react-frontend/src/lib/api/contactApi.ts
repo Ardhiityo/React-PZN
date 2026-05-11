@@ -44,3 +44,7 @@ export const contactList = async (params: ContactQueryParams) => {
 
     return api.get(url.toString());
 };
+
+export const contactDelete = async (id: number) => {
+    return api.delete(`/contacts/${id}`);
+}
