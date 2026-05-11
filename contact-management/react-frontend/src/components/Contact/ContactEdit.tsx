@@ -19,7 +19,7 @@ export default function ContactEdit() {
     const [phone, setPhone] = useState('');
 
     const params = useParams()
-    const contactId = Number(params.id);
+    const contactId = Number(params.contactId);
 
     async function fetchContact() {
         try {
