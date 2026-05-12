@@ -10,7 +10,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 
         const register = await registerUserService(validated);
 
-        return res.status(200).json({
+        return res.status(201).json({
             data: register
         })
     } catch (error) {

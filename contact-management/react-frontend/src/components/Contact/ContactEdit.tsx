@@ -27,7 +27,7 @@ export default function ContactEdit() {
             if (response.status === 200) {
                 const { first_name, last_name, email, phone } = response.data.data
                 setFirstName(first_name)
-                setLastName(last_name)
+                setLastName(last_name ?? '')
                 setEmail(email)
                 setPhone(phone)
             }

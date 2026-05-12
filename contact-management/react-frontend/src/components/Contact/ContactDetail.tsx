@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useEffectOnce } from "react-use";
 import { contactDetail } from "../../lib/api/contactApi";
 import { Link, useParams } from "react-router";
-import { errorAlert } from "../../lib/alert/sweetAlert";
-import { addressList } from "../../lib/api/addressApi";
+import { confirmAlert, errorAlert, successAlert } from "../../lib/alert/sweetAlert";
+import { addressDelete, addressList } from "../../lib/api/addressApi";
 
 type Address = {
+    id: number,
     street: string,
     country: string,
     province: string,
@@ -56,6 +57,24 @@ export default function ContactDetail() {
         }
     }
 
+    async function handleContactDelete(addressId: number) {
+        try {
+            if (await confirmAlert()) {
+                const response = await addressDelete(Number(params.contactId), Number(addressId))
+                if (response.status === 200) {
+                    successAlert('Deleted Address Successfully');
+                    fetchAddresses();
+                }
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                return errorAlert(error.message);
+            } else {
+                return errorAlert('Unknown error');
+            }
+        }
+    }
+
     useEffectOnce(() => {
         fetchContact();
         fetchAddresses();
@@ -80,7 +99,7 @@ export default function ContactDetail() {
                         <div className="w-20 h-20 bg-gradient rounded-full mx-auto flex items-center justify-center mb-4 shadow-lg">
                             <i className="fas fa-user text-3xl text-white" />
                         </div>
-                        <h2 className="text-2xl font-bold text-white mb-2">John Doe</h2>
+                        <h2 className="text-2xl font-bold text-white mb-2">{firstName} {lastName}</h2>
                         <div className="w-24 h-1 bg-gradient mx-auto rounded-full" />
                     </div>
 
@@ -116,7 +135,7 @@ export default function ContactDetail() {
                             <p className="text-white text-lg ml-6">{phone}</p>
                         </div>
                     </div>
-                    {/* Addresses Section */}
+
                     <div className="mb-8">
                         <div className="flex items-center mb-5">
                             <i className="fas fa-map-marker-alt text-blue-400 mr-3" />
@@ -125,7 +144,7 @@ export default function ContactDetail() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
                             <div className="bg-gray-700 bg-opacity-50 p-5 rounded-lg border-2 border-dashed border-gray-600 shadow-md card-hover">
-                                <Link to="/dashboard/addresses/create" className="block h-full">
+                                <Link to={`/dashboard/contacts/${contactId}/addresses/create`} className="block h-full">
                                     <div className="flex flex-col items-center justify-center h-full text-center py-4">
                                         <div className="w-16 h-16 bg-gradient rounded-full flex items-center justify-center mb-4 shadow-lg transform transition-transform duration-300 hover:scale-110">
                                             <i className="fas fa-plus text-2xl text-white" />
@@ -173,13 +192,13 @@ export default function ContactDetail() {
                                         </p>
                                     </div>
                                     <div className="flex justify-end space-x-3">
-                                        <a
-                                            href="edit_address.html"
+                                        <Link
+                                            to={`/dashboard/contacts/${contactId}/addresses/${address.id}/edit`}
                                             className="px-4 py-2 bg-gradient text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center"
                                         >
                                             <i className="fas fa-edit mr-2" /> Edit
-                                        </a>
-                                        <button className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
+                                        </Link>
+                                        <button onClick={() => handleContactDelete(address.id)} className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800 transition-all duration-200 font-medium shadow-md flex items-center">
                                             <i className="fas fa-trash-alt mr-2" /> Delete
                                         </button>
                                     </div>

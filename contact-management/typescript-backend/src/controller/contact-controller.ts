@@ -10,7 +10,7 @@ const create = async (req: UserRequest, res: Response, next: NextFunction) => {
 
         const result = await createContactService(req.user!.id, validated);
 
-        return res.status(200).json({
+        return res.status(201).json({
             data: result
         })
     } catch (error) {

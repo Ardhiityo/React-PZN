@@ -14,7 +14,7 @@ const create = async (req: UserRequest, res: Response, next: NextFunction) => {
             validated
         );
 
-        return res.status(200).json({
+        return res.status(201).json({
             data: contact
         })
     } catch (error) {

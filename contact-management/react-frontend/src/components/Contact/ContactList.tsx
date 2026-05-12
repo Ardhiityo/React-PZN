@@ -26,12 +26,14 @@ export default function ContactList() {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
-    const [size,] = useState<number>(1);
+    const [size,] = useState<number>(10);
     const [page, setPage] = useState<number>(1);
     const [totalPage, setTotalPage] = useState<number>(1);
 
-    function handleSetPage(page: number) {
-        fetchContacts(page);
+    function handleSetPage(newPage: number) {
+        if (page != newPage) {
+            fetchContacts(newPage);
+        }
     }
 
     async function handleContactDelete(id: number) {

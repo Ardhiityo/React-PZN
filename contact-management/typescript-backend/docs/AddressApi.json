@@ -16,7 +16,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     },
                     {
                         "required": true,
@@ -26,6 +27,7 @@
                     }
                 ],
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -46,7 +48,12 @@
                                     "postal_code": {
                                         "type": "string"
                                     }
-                                }
+                                },
+                                "required": [
+                                    "city",
+                                    "province",
+                                    "country"
+                                ]
                             }
                         }
                     }
@@ -94,7 +101,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     },
                     {
                         "required": true,
@@ -246,7 +254,12 @@
                                     "postal_code": {
                                         "type": "string"
                                     }
-                                }
+                                },
+                                "required": [
+                                    "city",
+                                    "province",
+                                    "country"
+                                ]
                             }
                         }
                     }
@@ -295,6 +308,18 @@
                         "name": "Authorization",
                         "schema": {},
                         "in": "header",
+                        "required": true
+                    },
+                    {
+                        "name": "idContacts",
+                        "schema": {},
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "idAddresses",
+                        "schema": {},
+                        "in": "path",
                         "required": true
                     }
                 ],

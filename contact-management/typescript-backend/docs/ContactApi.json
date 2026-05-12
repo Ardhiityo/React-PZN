@@ -16,7 +16,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     }
                 ],
                 "requestBody": {
@@ -37,7 +38,12 @@
                                     "phone": {
                                         "type": "string"
                                     }
-                                }
+                                },
+                                "required": [
+                                    "first_name",
+                                    "email",
+                                    "phone"
+                                ]
                             }
                         }
                     }
@@ -103,7 +109,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     },
                     {
                         "name": "name",
@@ -190,7 +197,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     },
                     {
                         "name": "id",
@@ -217,7 +225,8 @@
                                     "phone": {
                                         "type": "string"
                                     }
-                                }
+                                },
+                                "required": ["first_name", "email", "phone"]
                             }
                         }
                     }
@@ -262,7 +271,7 @@
                                 "examples": {
                                     "validation error": {
                                         "value": {
-                                                "errors": [
+                                            "errors": [
                                                 {
                                                     "first_name": "first_name can't blank"
                                                 },
@@ -283,7 +292,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     },
                     {
                         "name": "id",
@@ -332,7 +342,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     },
                     {
                         "name": "id",

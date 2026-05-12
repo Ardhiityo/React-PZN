@@ -31,7 +31,8 @@
                                 },
                                 "required": [
                                     "username",
-                                    "password"
+                                    "password",
+                                    "name"
                                 ]
                             },
                             "examples": {
@@ -125,7 +126,11 @@
                                     "password": {
                                         "type": "string"
                                     }
-                                }
+                                },
+                                "required": [
+                                    "username",
+                                    "password"
+                                ]
                             },
                             "examples": {
                                 "khannedy": {
@@ -191,7 +196,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -228,7 +234,8 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     }
                 ],
                 "requestBody": {
@@ -243,7 +250,11 @@
                                     "password": {
                                         "type": "string"
                                     }
-                                }
+                                },
+                                "required": [
+                                    "name",
+                                    "password"
+                                ]
                             }
                         }
                     }
@@ -282,7 +293,7 @@
                                 "examples": {
                                     "validation error": {
                                         "value": {
-                                           "errors": [
+                                            "errors": [
                                                 {
                                                     "name": "name can't blank"
                                                 },
@@ -305,25 +316,24 @@
                     {
                         "name": "Authorization",
                         "in": "header",
-                        "schema": {}
+                        "schema": {},
+                        "required": true
                     }
                 ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "data": {
-                                        "type": "boolean"
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "boolean"
+                                        }
                                     }
                                 }
                             }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
+                        },
                         "description": "success logout users"
                     }
                 }

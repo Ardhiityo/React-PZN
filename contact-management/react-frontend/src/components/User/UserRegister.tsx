@@ -33,7 +33,7 @@ export default function UserRegister() {
 
         try {
             const response = await userRegister({ username, name, password });
-            if (response.status === 200) {
+            if (response.status === 201) {
                 successAlert('Register Successfully!');
                 navigate('/login');
             }

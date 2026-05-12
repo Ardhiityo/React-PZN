@@ -11,25 +11,37 @@ import ContactCreate from './components/Contact/ContactCreate'
 import ContactList from './components/Contact/ContactList'
 import ContactEdit from './components/Contact/ContactEdit'
 import ContactDetail from './components/Contact/ContactDetail'
+import AddressCreate from './components/Address/AddressCreate'
+import AddressEdit from './components/Address/AddressEdit'
+import App from './components/App'
+import AuthMiddleware from './components/middleware/AuthMiddleware'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<App />} />
         <Route element={<AuthLayout />}>
           <Route path='/register' element={<UserRegister />} />
           <Route path='/login' element={<UserLogin />} />
         </Route>
-        <Route path='/dashboard' element={<DashboardLayout />}>
-          <Route path='users'>
-            <Route path='profile' element={<UserProfile />} />
-            <Route path='logout' element={<UserLogout />} />
-          </Route>
-          <Route path='contacts'>
-            <Route index element={<ContactList />} />
-            <Route path='create' element={<ContactCreate />} />
-            <Route path=':contactId' element={<ContactDetail />} />
-            <Route path=':contactId/edit' element={<ContactEdit />} />
+
+        <Route element={<AuthMiddleware />}>
+          <Route path='/dashboard' element={<DashboardLayout />}>
+            <Route path='users'>
+              <Route path='profile' element={<UserProfile />} />
+              <Route path='logout' element={<UserLogout />} />
+            </Route>
+            <Route path='contacts'>
+              <Route index element={<ContactList />} />
+              <Route path='create' element={<ContactCreate />} />
+              <Route path=':contactId'>
+                <Route index element={<ContactDetail />} />
+                <Route path='edit' element={<ContactEdit />} />
+                <Route path='addresses/create' element={<AddressCreate />} />
+                <Route path='addresses/:addressId/edit' element={<AddressEdit />} />
+              </Route>
+            </Route>
           </Route>
         </Route>
       </Routes>

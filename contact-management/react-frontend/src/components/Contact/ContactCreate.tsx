@@ -30,7 +30,7 @@ export default function ContactCreate() {
         e.preventDefault();
         try {
             const response = await contactCreate({ firstName, lastName, email, phone });
-            if (response.status === 200) {
+            if (response.status === 201) {
                 successAlert('Created Contact Successfully');
                 navigate('/dashboard/contacts');
             }
