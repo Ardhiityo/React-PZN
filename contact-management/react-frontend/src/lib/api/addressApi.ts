@@ -2,11 +2,11 @@ import api from "./api";
 
 type CreateAddress = {
     contactId: number,
-    street: string,
+    street?: string,
     city: string,
     country: string,
     province: string,
-    postalCode: string
+    postalCode?: string
 }
 
 type UpdateAddress = CreateAddress & {
