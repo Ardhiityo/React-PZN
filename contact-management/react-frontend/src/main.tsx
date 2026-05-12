@@ -14,7 +14,8 @@ import ContactDetail from './components/Contact/ContactDetail'
 import AddressCreate from './components/Address/AddressCreate'
 import AddressEdit from './components/Address/AddressEdit'
 import App from './components/App'
-import AuthMiddleware from './components/middleware/AuthMiddleware'
+import AuthMiddleware from './components/Middleware/AuthMiddleware'
+import "./assets/main.css";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
