@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "@prisma/client";
+import logger from "./logging";
 
 // Force load the WASM compiler module to avoid Jest teardown issues
 try {
@@ -44,7 +45,7 @@ prisma.$on("query", (e) => {
 });
 
 prisma.$on("error", (e) => {
-  console.log(e);
+  logger.info(e.message);
 });
 
 prisma.$on("info", (e) => {
